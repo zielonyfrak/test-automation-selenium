@@ -1,0 +1,21 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+*.ipr
+*.log
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Bamboo
+.credentials
