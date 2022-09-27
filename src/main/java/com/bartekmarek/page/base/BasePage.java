@@ -38,7 +38,16 @@ public class BasePage extends PageGenerator {
 
     protected boolean isVisible(WebElement element) {
         try {
-            waitUntil(Duration.ofSeconds(3), Duration.ofSeconds(1)).until(ExpectedConditions.visibilityOf(element));
+            waitUntil(Duration.ofSeconds(5), Duration.ofSeconds(1)).until(ExpectedConditions.visibilityOf(element));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    protected boolean isPresent(By elementLocator) {
+        try {
+            waitUntil(Duration.ofSeconds(10), Duration.ofSeconds(1)).until(ExpectedConditions.presenceOfElementLocated(elementLocator));
             return true;
         } catch (Exception e) {
             return false;

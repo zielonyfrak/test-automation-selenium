@@ -54,7 +54,7 @@ public class DriverSupplier {
         driverMap.put(DriverType.IE, ieDriverSupplier);
     }
 
-    private final String driverProperties = "chrome";//System.getProperty("browser");
+    private final String driverProperties = System.getProperty("browser");
 
     WebDriver getDriver() {
         WebDriver driver = selectDriver(driverProperties);
