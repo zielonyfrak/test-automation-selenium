@@ -21,7 +21,7 @@ public class DriverSupplier {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--start-maximized");
-//        options.addArguments("--headless"); //TODO parametrize it
+        options.addArguments("--headless"); //TODO parametrize it
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--ignore-certificare-errors");
         options.addArguments("--verbose");
