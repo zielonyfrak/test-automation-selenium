@@ -1,25 +1,25 @@
 package com.bartekmarek.tests.stepdefinitions;
 
-
+import com.bartekmarek.cucumber.TestContext;
 import com.bartekmarek.driver.PageManager;
+import com.bartekmarek.page.base.BasePage;
 import com.bartekmarek.page.base.PageGenerator;
-import com.bartekmarek.page.components.MainPageHeader;
-import com.bartekmarek.page.pages.MainPage;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BaseSteps {
 
-    private final PageGenerator pageGenerator = PageManager.getInstance().getPageGenerator();
+    final PageGenerator pageGenerator;
+    TestContext context;
 
-    @Given("I'm on Brew Dog main page")
-    public void goToMainPage() {
-        MainPage mainPage = pageGenerator.getInstance(MainPage.class);
-        mainPage.goToMainPage();
+    public BaseSteps(TestContext context) {
+        this.context = context;
+        pageGenerator = PageManager.getInstance().getPageGenerator();
     }
 
-    @And("I navigate to all beers selection page")
-    public void iNavigateToAllBeersSelectionPage() {
-        pageGenerator.getInstance(MainPageHeader.class).navigateToAllBeersShopPage();
+    protected void testPageTitle(String expectedPageTitle) {
+        assertThat(pageGenerator.getInstance(BasePage.class).isPageTileLike(expectedPageTitle))
+                .as("Actual page title doesn't match to: " + expectedPageTitle)
+                .isTrue();
     }
 }

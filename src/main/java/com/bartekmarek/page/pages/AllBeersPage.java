@@ -34,22 +34,22 @@ public class AllBeersPage extends BasePage {
         return productCards.get(index); //TODO size check
     }
 
-    public BasketItem addToBasketFirstProduct(int numberOfPcs) {
-        WebElement productCard = getProductCardByIndex(2);
+    public BasketItem addToBasketProduct(int index, int numberOfPcs) {
+        WebElement productCard = getProductCardByIndex(index);
         productCard.findElement(By.xpath(".//button[@data-testid='add-to-bag-button']")).click();
         numberOfPcs--;
-        while (isPresent(By.xpath(".//button[@data-testid='increase-quantity-button']")) && numberOfPcs > 0) {
+        while (isPresentInWebElement(productCard, By.xpath(".//button[@data-testid='increase-quantity-button']")) && numberOfPcs > 0) {
             click(productCard.findElement(By.xpath(".//button[@data-testid='increase-quantity-button']")));
             numberOfPcs--;
         }
 
         BasketItem basketItem = BasketItem.builder().build();
 
-        if (isPresent(By.xpath(".//*[@data-testid='product-count']"))) {
+        if (isPresentInWebElement(productCard, By.xpath(".//*[@data-testid='product-count']"))) {
             basketItem = BasketItem.builder()
                     .name(productCard.findElement(By.xpath(".//*[@data-testid='product-card-title']")).getText())
                     .quantity(Integer.parseInt(productCard.findElement(By.xpath(".//*[@data-testid='product-count']")).getText()))
-                    .price(productCard.findElement(By.xpath(".//*[@data-testid='product-price']")).getText())
+                    .priceAsString(productCard.findElement(By.xpath(".//*[@data-testid='product-price']")).getText())
                     .build();
 
             System.out.println("Basket item: " + basketItem);

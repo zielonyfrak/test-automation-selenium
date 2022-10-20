@@ -9,10 +9,9 @@ import io.cucumber.java.en.And;
 
 public class AllBeersPageSteps {
 
-
     private final PageGenerator pageGenerator = PageManager.getInstance().getPageGenerator();
-    private AllBeersPage allBeersPage = pageGenerator.getInstance(AllBeersPage.class);
-    private TestContext context;
+    private final AllBeersPage allBeersPage = pageGenerator.getInstance(AllBeersPage.class);
+    private final TestContext context;
 
     public AllBeersPageSteps(TestContext context) {
         this.context = context;
@@ -20,9 +19,13 @@ public class AllBeersPageSteps {
 
     @And("I add to basket {int} pcs of first beer from the page")
     public void addToBasketPcsOfFirstBeer(int numberOfPcs) {
-        BasketItem item = allBeersPage.addToBasketFirstProduct(numberOfPcs);
+        BasketItem item = allBeersPage.addToBasketProduct(0, numberOfPcs);
         context.getBasket().add(item);
+    }
 
-        System.out.println("Baskettt: " + context.getBasket());
+    @And("I add to basket {int} pcs of last beer from the page")
+    public void addToBasketPcsOfSecondBeer(int numberOfPcs) {
+        BasketItem item = allBeersPage.addToBasketProduct(23, numberOfPcs); //TODO
+        context.getBasket().add(item);
     }
 }

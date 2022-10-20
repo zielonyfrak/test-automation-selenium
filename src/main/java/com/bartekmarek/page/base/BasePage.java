@@ -25,6 +25,15 @@ public class BasePage extends PageGenerator {
         //wait for page to reload??
     }
 
+    public boolean isPageTileLike(String expectedTitle) {
+        try {
+            waitUntil().until(ExpectedConditions.titleIs(expectedTitle));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public FluentWait<WebDriver> waitUntil(Duration timeout, Duration polling) {
         return new FluentWait<>(super.driver)
                 .withTimeout(timeout)
@@ -52,6 +61,20 @@ public class BasePage extends PageGenerator {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    protected boolean isPresentInWebElement(WebElement element, By nestedElementLocator) {
+        try {
+            waitUntil(Duration.ofSeconds(10), Duration.ofSeconds(1)).until(ExpectedConditions.presenceOfNestedElementLocatedBy(element, nestedElementLocator));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    protected String getText(WebElement element) {
+        waitUntil().until(ExpectedConditions.visibilityOf(element));
+        return element.getText();
     }
 
     protected boolean isVisible(By elementLocator) {
